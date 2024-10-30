@@ -1,25 +1,18 @@
 #include <iostream>
 #include <vector>
-#include <string>
-#include <ctime>
 
 using namespace std;
 
-class Box
-{
-public:
-    double length;
-    double width;
-    double height;
-private:
-    int id;
-};
-
-
 int main()
 {
-    time_t now = time(0);
-    char* str = ctime(&now);
-    cout << "T:" << str << endl;
+    vector<int> vector(5, 10086);
+    vector.push_back(9);
+    // vector.erase(vector.begin() + 4);
+    cout << "Vector size:" << vector.size() << endl;
+    for (size_t i = 0; i < vector.size(); i++)
+    {
+        cout << vector[i] << endl;
+    }
+
     return 0;
 }
