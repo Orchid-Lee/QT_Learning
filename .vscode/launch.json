@@ -1,0 +1,44 @@
+{
+    "configurations": [
+        {
+            // 这个调试任务的名字
+            "name": "C/C++: g++ build and debug active file",
+            // 调试任务的类型，它是由C/C++ extension定义的
+            "type": "cppdbg",
+            "request": "launch",
+            // 被调试的程序的路径
+            "program": "${fileDirname}/${fileBasenameNoExtension}",
+            // 被调试的程序的参数，这里我们的程序没有参数，故为空
+            "args": [],
+            // 是否则main函数设置断点
+            "stopAtEntry": false,
+            // 当前工作目录，current working directory
+            "cwd": "${fileDirname}",
+            // 环境变量
+            "environment": [],
+            // 是否使用
+            "externalConsole": false,
+            // 调试器，只能是gdb或者lldb
+            "MIMode": "gdb",
+            // gdb或者lldb的配置参数
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            // 前置依赖的任务，就是tasks.json里面的任务名字
+            "preLaunchTask": "C/C++: g++ build active file",
+            // debug工具的路径
+            "miDebuggerPath": "/usr/bin/gdb",
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /bin/gdb -q --interpreter=mi"
+        }
+    ],
+    "version": "2.0.0"
+}
