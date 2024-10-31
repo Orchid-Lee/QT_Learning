@@ -1,43 +1,41 @@
 #include <iostream>
 #include <thread>
+#include <unistd.h>
+#include <mutex>
 
 using namespace std;
 
-void printMsg(int count)
+mutex mtx;
+
+void printMsg(int& x)
 {
-    for (size_t i = 0; i < count; i++)
+    for (size_t i = 0; i < 50000; i++)
     {
-        cout << "Hello from thread (function pointer)!" << endl;
+        mtx.lock();
+        x--;
+        mtx.unlock();
     }
 }
 
-class PrintMsg
+void printMsg1(int& x)
 {
-public:
-    void operator()(int count) const
+    for (size_t i = 0; i < 50000; i++)
     {
-        for (size_t i = 0; i < count; i++)
-        {
-            cout << "Hello from thread (function obj)!" << endl;
-        }
+        mtx.lock();
+        x++;
+        mtx.unlock();
     }
-};
+}
 
 int main()
 {
-    thread t1(printMsg, 5);
+    int x = 10;
+    thread t2(printMsg1, ref(x));
+    thread t1(printMsg, ref(x));
+    
     t1.join();
-
-    thread t2(PrintMsg(), 5);
     t2.join();
 
-    thread t3([](int count)
-    {
-        for (size_t i = 0; i < count; i++)
-        {
-            cout << "Hello from thread (function 3)!" << endl;
-        }
-    }, 5);
-    t3.detach();
+    cout << "x:" << x << endl;
     return 0;
 }
