@@ -1,16 +1,24 @@
 #include <iostream>
-#include <fstream>
-#include <string>
 
 using namespace std;
 
+class MyExc : public exception
+{
+    const char* what() const throw()
+    {
+        return "Nullpointer exception";
+    }
+};
+
 int main()
 {
-    double *ap = NULL;
-    ap = new double;
-    *ap = 3.1415926;
-    delete ap;
-    ap = NULL;
-    cout << *ap << endl;
-    return 0;
+    try
+    {
+        throw MyExc();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+    
 }
