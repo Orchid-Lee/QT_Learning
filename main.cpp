@@ -1,28 +1,27 @@
 #include <iostream>
+#include <csignal>
+#include <unistd.h>
 
 using namespace std;
 
-template <typename T>
-T const &Max(T const &a, T const &b)
+void sig_handler(int sig_num)
 {
-    return a > b ? a : b;
-};
-
-template <class T> 
-class Box
-{
-public:
-    T a;
-};
+    cout << "recv sig: " << sig_num << endl;
+    exit(sig_num);
+}
 
 int main()
 {
-    int x = 12;
-    int y = 14;
-    cout << "result:" << Max(x, y) << endl;
-
-    Box<int> box;
-    box.a = 12;
-    cout << "box.a = " << box.a << endl;
+    int i = 0;
+    signal(SIGINT, sig_handler);
+    while (++i)
+    {
+        if (i == 3)
+        {
+            raise(SIGINT);
+        }
+        cout << "Going to sleep." << endl;
+        sleep(1);
+    }
     return 0;
 }
