@@ -11,9 +11,8 @@ void printMsg(int& x)
 {
     for (size_t i = 0; i < 50000; i++)
     {
-        mtx.lock();
+        lock_guard<mutex> lk(mtx);
         x--;
-        mtx.unlock();
     }
 }
 
@@ -21,9 +20,8 @@ void printMsg1(int& x)
 {
     for (size_t i = 0; i < 50000; i++)
     {
-        mtx.lock();
+        lock_guard<mutex> lk(mtx);
         x++;
-        mtx.unlock();
     }
 }
 
