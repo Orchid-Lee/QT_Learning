@@ -4,16 +4,13 @@
 
 using namespace std;
 
-class MyE : public exception
-{
-    const char* what() const throw()
-    {
-        return "C++ exception";
-    }
-};
-
 int main()
 {
-    throw MyE();
+    double *ap = NULL;
+    ap = new double;
+    *ap = 3.1415926;
+    delete ap;
+    ap = NULL;
+    cout << *ap << endl;
     return 0;
 }
