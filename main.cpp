@@ -2,23 +2,27 @@
 
 using namespace std;
 
-class MyExc : public exception
+template <typename T>
+T const &Max(T const &a, T const &b)
 {
-    const char* what() const throw()
-    {
-        return "Nullpointer exception";
-    }
+    return a > b ? a : b;
+};
+
+template <class T> 
+class Box
+{
+public:
+    T a;
 };
 
 int main()
 {
-    try
-    {
-        throw MyExc();
-    }
-    catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-    
+    int x = 12;
+    int y = 14;
+    cout << "result:" << Max(x, y) << endl;
+
+    Box<int> box;
+    box.a = 12;
+    cout << "box.a = " << box.a << endl;
+    return 0;
 }
