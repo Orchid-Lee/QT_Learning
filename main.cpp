@@ -1,18 +1,33 @@
 #include <iostream>
-#include <vector>
 
 using namespace std;
 
+class Box
+{
+protected:
+    double len;
+    double wid;
+    double hei;
+
+public:
+    virtual double area() = 0;
+};
+
+class Rect: public Box
+{
+public:
+    double area()
+    {
+        cout << "sub area." << endl;
+        return 0;
+    };
+};
+
 int main()
 {
-    vector<int> vector(5, 10086);
-    vector.push_back(9);
-    // vector.erase(vector.begin() + 4);
-    cout << "Vector size:" << vector.size() << endl;
-    for (size_t i = 0; i < vector.size(); i++)
-    {
-        cout << vector[i] << endl;
-    }
-
+    Box *box;
+    Rect rect;
+    box = &rect;
+    cout << "rect:" << box->area() << endl;
     return 0;
 }
