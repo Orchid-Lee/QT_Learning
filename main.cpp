@@ -11,7 +11,7 @@ void printMsg(int& x)
 {
     for (size_t i = 0; i < 50000; i++)
     {
-        lock_guard<mutex> lk(mtx);
+        unique_lock<mutex> lk(mtx);
         x--;
     }
 }
@@ -20,7 +20,7 @@ void printMsg1(int& x)
 {
     for (size_t i = 0; i < 50000; i++)
     {
-        lock_guard<mutex> lk(mtx);
+        unique_lock<mutex> lk(mtx);
         x++;
     }
 }
